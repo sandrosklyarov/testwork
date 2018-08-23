@@ -1,0 +1,43 @@
+{#{% extends 'base.html' %}#}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $('#zip').on('click', function () {
+                window.open('/emails/zip/?'+$('#zip_form').serialize());
+            })
+        })
+    </script>
+</head>
+<body>
+{% block content %}
+<form type="get" action=".">
+    <input type="text" name="q">
+    <button type="submit">Search</button>
+</form>
+
+<div id="emails" style="margin: 5px">
+    {% if emails %}
+        <form id="zip_form" name="zip_form" method="post" enctype="multipart/form-data">
+            <button type="button" id="zip">ZIP</button>
+            {% for email in emails %}
+                <input type="hidden" name="ids[]" value="{{ email.id }}">
+                <div class="mail" data-id="{{ email.id }}" style="margin: 5px">
+                    <p>Заголовок: <b class="subject">{{ email.description|safe }}</b></p>
+                    <p>Отправитель: <b class="sender">{{ email.sender }}</b>, <span class="created">{{ email.created }}</span></p>
+                    <span class="text">{{ email.text|safe }}</span>
+                </div>
+                {% if not forloop.last %}
+                    <hr>
+                {% endif %}
+            {% endfor %}
+        </form>
+
+    {% endif %}
+</div>
+
+{% endblock %}
+</body>
+</html>
