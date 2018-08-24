@@ -68,7 +68,6 @@ class Command(BaseCommand):
                         date = str(msg).split('\n')[0].split(' ')[3:]
                         date = parse(' '.join(date))
                     obj = EMailPost.objects.create(sender=sender, created=date, description=subject, text=body)
-                    obj.indexing()
 
 
 
