@@ -29,7 +29,7 @@ def email_view(request):
                 },
             },
         },
-        "fields": ["id", "sender", "created", "text", "description"],
+        "_source": ["sender", "created", "text", "description"],
         "highlight": {
             "fields": {
                 "_all": {
@@ -46,10 +46,10 @@ def email_view(request):
         result = es.search(body=query, index='email')
         for email in result['hits']['hits']:
             email_obj = {
-                'created': email['fields']['created'][0],
-                'text': email['fields']['text'][0],
-                'description': email['fields']['description'][0],
-                'sender': email['fields']['sender'][0],
+                'created': email['_source']['created'],
+                'text': email['_source']['text'],
+                'description': email['_source']['description'],
+                'sender': email['_source']['sender'],
                 'id': email['_id'],
             }
             highlight = email.get('highlight')
