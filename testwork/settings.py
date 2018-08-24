@@ -3,9 +3,6 @@ import os
 
 SECRET_KEY = '6_85hwehx&=3wozc!f%*!h$z@wggh)og_qu@#8o+s76y(do4mz'
 
-import pymysql
-
-pymysql.install_as_MySQLdb()
 # import django
 # django.setup()
 
