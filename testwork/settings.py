@@ -45,6 +45,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+EMAIL_LOGIN = 'login@yandex.ru'
+EMAIL_PASS = 'password'
+
 ROOT_URLCONF = 'testwork.urls'
 
 WSGI_APPLICATION = 'testwork.wsgi.application'
