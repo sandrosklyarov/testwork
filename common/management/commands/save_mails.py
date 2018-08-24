@@ -9,6 +9,7 @@ import email
 import email.header
 import urllib.parse
 from emails.models import EMailPost, Tag
+from testwork.settings import EMAIL_PASS, EMAIL_LOGIN
 
 def extract_body(payload):
     if isinstance(payload, str):
@@ -27,7 +28,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         mail = imaplib.IMAP4_SSL('imap.yandex.ru', 993)
-        mail.login('fine.uaua@yandex.ru', 'PetyaNew123')
+        mail.login(EMAIL_LOGIN, EMAIL_PASS)
         mail.list()
         mail.select("inbox")
         result, data = mail.uid('search', None, 'UNSEEN')
