@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class EMailPost(models.Model):
     class Meta:
@@ -24,6 +26,10 @@ class EMailPost(models.Model):
         obj.save()
         return obj.to_dict(include_meta=True)
 
+@receiver(post_save, sender=EMailPost)
+def index_post(instance, **kwargs):
+    instance.indexing()    
+    
 class Tag(models.Model):
     text = models.CharField(max_length=1000)
     moderated = models.BooleanField(default=True)
